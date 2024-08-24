@@ -1,26 +1,45 @@
 <template>
-    <div>
-        <h1 class="font-black text-brand-main">Home</h1>
-    </div>
+  <CustomHeader @create-account="handleAccountCreate" @login="handleLogin" />
+  <Contact />
+  <div class="flex justify-center py-10 bg-brand-gray">
+    <p class="font-medium text-center text-gray-800">feedbacker © 2021</p>
+  </div>
 </template>
 
 <script>
 /* eslint-disable */
-import { reactive, toRefs } from 'vue'
+import CustomHeader from "./CustomHeader.vue";
+import Contact from "./Contact.vue";
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+//import { reactive, toRefs } from 'vue'
 
 export default {
-    setup () {
-        const state = reactive({
-            count: 0,
-        })
-    
-        return {
-            ...toRefs(state),
-        }
-    }
-}
+  name: "Home",
+  components: {
+    CustomHeader,
+    Contact,
+  },
+  setup() {
+    const router = useRouter();
+    function handleLogin() {}
+
+    function handleAccountCreate() {}
+    // const state = reactive({
+    //     count: 0,
+    // })
+
+    onMounted(() => {
+      const token = localStorage.getItem("token");
+      if (token) router.push({ name: "Feedbacks" });
+    });
+    return {
+      handleLogin,
+      handleAccountCreate,
+      //     ...toRefs(state),
+    };
+  },
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
