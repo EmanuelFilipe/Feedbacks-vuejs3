@@ -3,21 +3,6 @@
 ## instalando o vue test utils
 npm install --save-dev @vue/test-utils
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
 ### Run your unit tests
 ```
 npm run test:unit
@@ -38,6 +23,12 @@ npm run test:unit -- src/store/user.spec.js -- -u/
 ```
 npm run test:e2e
 ```
+## Cypress list methods
+https://docs.cypress.io/guides/references/assertions
+
+## esse comando ira gravar video/screenshots de erros na pasta test>specs
+passa o diretório do node_modules\.bin+/cypress run
+D:\Cursos\VuejsBR\treinamento-vue3-code\frontend\dashboard\node_modules\.bin/cypress run
 
 ### Lints and fixes files
 ```

@@ -82,102 +82,106 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
-import { useField } from 'vee-validate'
-import { useToast } from 'vue-toastification'
-import useModal from '../../hooks/useModal'
-import Icon from '../Icon'
+/* eslint-disable */
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
+import { useField } from "vee-validate";
+import { useToast } from "vue-toastification";
+import useModal from "../../hooks/useModal";
+import Icon from "../Icon";
 import {
   validateEmptyAndLength3,
-  validateEmptyAndEmail
-} from '../../utils/validators'
-import services from '../../services'
+  validateEmptyAndEmail,
+} from "../../utils/validators";
+import services from "../../services";
 
 export default {
   components: { Icon },
-  setup () {
-    const router = useRouter()
-    const modal = useModal()
-    const toast = useToast()
+  setup() {
+    const router = useRouter();
+    const modal = useModal();
+    const toast = useToast();
 
     const { value: nameValue, errorMessage: nameErrorMessage } = useField(
-      'name',
+      "name",
       validateEmptyAndLength3
-    )
+    );
 
     const { value: emailValue, errorMessage: emailErrorMessage } = useField(
-      'email',
+      "email",
       validateEmptyAndEmail
-    )
+    );
 
     const { value: passwordValue, errorMessage: passwordErrorMessage } =
-      useField('password', validateEmptyAndLength3)
+      useField("password", validateEmptyAndLength3);
 
     const state = reactive({
       hasErrors: false,
       isLoading: false,
       name: {
         value: nameValue,
-        errorMessage: nameErrorMessage
+        errorMessage: nameErrorMessage,
       },
       email: {
         value: emailValue,
-        errorMessage: emailErrorMessage
+        errorMessage: emailErrorMessage,
       },
       password: {
         value: passwordValue,
-        errorMessage: passwordErrorMessage
-      }
-    })
+        errorMessage: passwordErrorMessage,
+      },
+    });
 
-    async function login ({ email, password }) {
-      const { data, errors } = await services.auth.login({ email, password })
+    async function login({ email, password }) {
+      const { data, errors } = await services.auth.login({
+        email,
+        password,
+      });
       if (!errors) {
-        window.localStorage.setItem('token', data.token)
-        router.push({ name: 'Feedbacks' })
-        modal.close()
+        window.localStorage.setItem("token", data.token);
+        router.push({ name: "Feedbacks" });
+        modal.close();
       }
 
-      state.isLoading = false
+      state.isLoading = false;
     }
 
-    async function handleSubmit () {
+    async function handleSubmit() {
       try {
-        toast.clear()
-        state.isLoading = true
+        toast.clear();
+        state.isLoading = true;
 
         const { errors } = await services.auth.register({
           name: state.name.value,
           email: state.email.value,
-          password: state.password.value
-        })
+          password: state.password.value,
+        });
 
         if (!errors) {
           await login({
             email: state.email.value,
-            password: state.password.value
-          })
-          return
+            password: state.password.value,
+          });
+          return;
         }
 
         if (errors.status === 400) {
-          toast.error('Ocorreu um erro ao criar a conta')
+          toast.error("Ocorreu um erro ao criar a conta");
         }
 
-        state.isLoading = false
+        state.isLoading = false;
       } catch (error) {
-        state.isLoading = false
-        state.hasErrors = !!error
-        toast.error('Ocorreu um erro ao criar a conta')
+        state.isLoading = false;
+        state.hasErrors = !!error;
+        toast.error("Ocorreu um erro ao criar a conta");
       }
     }
 
     return {
       state,
       close: modal.close,
-      handleSubmit
-    }
-  }
-}
+      handleSubmit,
+    };
+  },
+};
 </script>
