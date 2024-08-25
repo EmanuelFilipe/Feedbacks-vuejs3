@@ -1,6 +1,7 @@
 ## --legacy-peer-deps
 
-# dashboard
+## instalando o vue test utils
+npm install --save-dev @vue/test-utils
 
 ## Project setup
 ```
@@ -20,6 +21,17 @@ npm run build
 ### Run your unit tests
 ```
 npm run test:unit
+```
+
+### Run your unit tests with specifc file
+```
+npm run test:unit -- src/store/user.spec.js
+```
+
+### Run your unit tests with specifc file and rebuild the snapshoot
+```
+npm run test:unit -- -u/
+npm run test:unit -- src/store/user.spec.js -- -u/
 ```
 
 ### Run your end-to-end tests
