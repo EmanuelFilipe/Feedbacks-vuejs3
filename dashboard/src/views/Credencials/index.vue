@@ -116,7 +116,7 @@ export default {
       try {
         state.isLoading = true
         const { data } = await services.users.generateApikey()
-
+        console.log('handleGenerateApikey', data.apiKey)
         setApiKey(data.apiKey)
         state.isLoading = false
       } catch (error) {
