@@ -10,8 +10,10 @@
 /* eslint-disable */
 import CustomHeader from "./CustomHeader.vue";
 import Contact from "./Contact.vue";
-import { onMounted } from "vue";
+import { onMounted, useModel } from "vue";
 import { useRouter } from "vue-router";
+import useModal from '../../hooks/useModal';
+
 //import { reactive, toRefs } from 'vue'
 
 export default {
@@ -21,10 +23,19 @@ export default {
     Contact,
   },
   setup() {
-    const router = useRouter();
-    function handleLogin() {}
+    const router = useRouter()
+    const modal = useModal()
+    function handleLogin () {
+      modal.open({
+        component: 'ModalLogin'
+      })
+    }
 
-    function handleAccountCreate() {}
+    function handleAccountCreate() {
+      modal.open({
+        component: 'ModalCreateAccount'
+      })
+    }
     // const state = reactive({
     //     count: 0,
     // })
